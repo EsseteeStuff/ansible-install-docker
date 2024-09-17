@@ -101,4 +101,11 @@
 - name: check if radarr container is running
   shell: sh ~/containers/radarr/check_radarr_status.sh
 
-  
+- name: check if sonarr container is running
+  shell: sh ~/containers/sonarr/check_sonarr_status.sh
+
+- name: check if qbittorrent container is running
+  shell: sh ~/containers/qbittorrent/check_qbittorrent_status.sh
+
+- name: check if sabnzbd container is running
+  shell: sh ~/containers/sabnzbd/check_sabnzbd_status.sh
