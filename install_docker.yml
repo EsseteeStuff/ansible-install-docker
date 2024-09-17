@@ -23,7 +23,7 @@
         - python3-wheel
         - git
         - mc
-        - nfs-utils
+        - nfs-common
         - autofs
       state: present
     when: ansible_distribution == "Debian"

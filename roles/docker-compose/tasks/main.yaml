@@ -1,15 +1,15 @@
 - name: Create a container directory if it does not exist
   ansible.builtin.file:
-    path: /home/serge/container
+    path: /home/"{{ user }}"/container
     state: directory
     mode: '0755'
 
-- name: copy shellscript to /home/serge/bin
+- name: copy shellscript to /home/"{{ user }}"/bin
   ansible.builtin.copy:
-    src: ~/ansible/files/mkdir_containers.sh
-    dest: /home/serge/bin/mkdir_containers.sh
-    owner: serge
-    group: serge
+    src: ~/ansible-install-docker/files/mkdir_containers.sh
+    dest: /home/"{{ user }}"/bin/mkdir_containers.sh
+    owner: "{{ user }}"
+    group: "{{ user }}"
     mode: 0755
 
 - name: Execute the mkdirs for *arr applications; stdout goes to the specified file on the remote
@@ -19,80 +19,80 @@
   ansible.builtin.copy:
     src: prowlarr-compose.yml
     dest: ~/containers/prowlarr/docker-compose.yml
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy check_prowlarr_status.sh to ~/containers/prowlarr
   ansible.builtin.copy:
     src: check_prowlarr_status.sh
     dest: ~/containers/prowlarr/check_prowlarr_status.sh
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy radarr-compose.yml
   ansible.builtin.copy:
     src: radarr-compose.yml
     dest: ~/containers/radarr/docker-compose.yml
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy check_radarr_status.sh to ~/containers/radarr
   ansible.builtin.copy:
     src: check_radarr_status.sh
     dest: ~/containers/radarr/check_radarr_status.sh
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy sonarr-compose.yml
   ansible.builtin.copy:
     src: sonarr-compose.yml
     dest: ~/containers/sonarr/docker-compose.yml
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy check_sonarr_status.sh to ~/containers/sonarr
   ansible.builtin.copy:
     src: check_sonarr_status.sh
     dest: ~/containers/sonarr/check_sonarr_status.sh
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy sabnzbd-compose.yml
   ansible.builtin.copy:
     src: sabnzbd-compose.yml
     dest: ~/containers/sabnzbd/docker-compose.yml
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy check_sabnzbd_status.sh to ~/containers/sabnzbd
   ansible.builtin.copy:
     src: check_sabnzbd_status.sh
     dest: ~/containers/sabnzbd/check_sabnzbd_status.sh
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy qbittorrent-compose.yml
   ansible.builtin.copy:
     src: qbittorrent-compose.yml
     dest: ~/containers/qbittorrent/docker-compose.yml
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: Copy check_qbittorrent_status.sh to ~/containers/qbittorrent
   ansible.builtin.copy:
     src: check_qbittorrent_status.sh
     dest: ~/containers/qbittorrent/check_qbittorrent_status.sh
-    group: serge
-    owner: serge
+    group: "{{ user }}"
+    owner: "{{ user }}"
     mode: 0775
 
 - name: check if prowlarr container is running
