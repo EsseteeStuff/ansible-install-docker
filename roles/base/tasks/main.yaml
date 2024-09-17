@@ -1,0 +1,24 @@
+- name: add sudoers file for serge
+  tags: always
+  ansible.builtin.copy:
+    src: sudoers_serge
+    dest: /etc/sudoers.d/serge
+    owner: root
+    group: root
+    mode: 0440
+
+- name: copy .bash_aliases to Debian
+  tags: always
+  ansible.builtin.copy:
+    src: bash_aliases
+    dest: /home/serge/.bash_aliases
+    owner: serge
+    group: serge
+    mode: 0440
+  when: ansible_distribution == "Debian"
+  
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /home/serge/bin
+    state: directory
+    mode: '0755'

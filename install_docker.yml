@@ -1,0 +1,68 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+  - name: update and upgrade system
+    tags: always
+    ansible.builtin.apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Debian"
+
+  - name: install packages on debian
+    ansible.builtin.apt:
+      name: 
+        - curl
+        - build-essential
+        - htop
+        - python3-dev
+        - python3-full
+        - python3-pip
+        - python3-toml
+        - python3-virtualenv
+        - python3-wheel
+        - git
+        - mc
+        - nfs-utils
+        - autofs
+      state: present
+    when: ansible_distribution == "Debian"
+
+  - name: copy sshd_config and restart sshd server
+    tags: always
+    ansible.builtin.copy:
+      src: sshd_config
+      dest: /etc/ssh/sshd_config
+      owner: root
+      group: root
+      mode: 0440
+    when: ansible_distribution == "Debian"
+    register: sshd
+
+  - name: restart sshd
+    tags: sshd,debian
+    ansible.builtin.service:
+      name: sshd
+      state: restarted
+    when: sshd.changed  
+    notify: restart_sshd
+
+- hosts: debian
+  become: true
+  roles:
+    - geerlingguy.docker
+    
+- hosts: debian
+  become: true
+  roles:
+    - base
+
+- hosts: debian
+  become: true
+  roles:
+    - docker
+
+- hosts: debian
+  roles:
+    - docker-compose
+    
