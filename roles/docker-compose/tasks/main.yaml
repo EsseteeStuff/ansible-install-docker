@@ -1,13 +1,13 @@
 - name: Create a container directory if it does not exist
   ansible.builtin.file:
-    path: /home/"{{ user }}"/container
+    path: ~/containers
     state: directory
     mode: '0755'
 
-- name: copy shellscript to /home/"{{ user }}"/bin
+- name: copy shellscript to ~/bin
   ansible.builtin.copy:
     src: ~/ansible-install-docker/files/mkdir_containers.sh
-    dest: /home/"{{ user }}"/bin/mkdir_containers.sh
+    dest: ~/bin/mkdir_containers.sh
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: 0755
@@ -97,3 +97,8 @@
 
 - name: check if prowlarr container is running
   shell: sh ~/containers/prowlarr/check_prowlarr_status.sh
+
+- name: check if radarr container is running
+  shell: sh ~/containers/radarr/check_radarr_status.sh
+
+  
