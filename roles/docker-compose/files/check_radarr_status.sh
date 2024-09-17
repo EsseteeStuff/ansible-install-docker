@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env bash
 
 PID=`docker ps | grep radarr | awk '{print $1}'`
 
