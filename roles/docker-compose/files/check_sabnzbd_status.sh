@@ -1,7 +1,11 @@
-#!/bin/sh
+#!/bin/env bash
 
-PID=`docker ps | grep sabnzbd | awk '{ print $0 }'`
+pad="$HOME/containers/sabnzbd"
+
+PID=`docker ps | grep sabnzbd | awk '{print $1}'`
+
 if [ -z "$PID" ]
 then
+    cd $pad 
     docker compose up -d
 fi
